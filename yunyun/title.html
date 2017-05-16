@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		留言板<br/>
+		<!--<form action="">-->
+		标题&nbsp;&nbsp;<input type="text" name="title" value="" />
+		    <br/><br/>
+		内容 &nbsp;&nbsp; <textarea  name="content" rows="5" cols="20"></textarea>
+		    <br/>
+		<button id="mm">提交</button>
+		</br>
+		</br>
+		    &nbsp;&nbsp;<input id ="vv" type="text" name="title" value="" />
+		         </br>
+		         </br>
+		 	&nbsp;&nbsp;<textarea id = "pp"  name="content" rows="5" cols="20"></textarea>
+		 	    </br>
+	            <button id="kk">删除</button>
+		<!--</form>-->
+	</body>
+	  <script src="jquery.js"></script>
+	    <script>
+	    	var jj=document.getElementsByTagName("input")[0];
+	    	var kk=document.getElementsByTagName("textarea")[0];
+//	    	var vv=document.getElementsByTagName("textarea")[1];
+//	    	var pp=document.getElementsByTagName("input")[1];
+//	    	var yy=document.getElementsByTagName("button")[1];
+	     $("#mm").click(function(){
+	     	 $.ajax({
+	  	   	  	type:"get",
+	  	   	  	url:"title.php",
+	  	   	  	dataType: "text",
+	  	   	  	data:{title:jj.value,content:kk.value},
+	  	   	  	success:function(msg){
+					if(msg==1){
+							alert('404');
+					}else{
+							var ja=JSON.parse(msg);
+							var js=JSON.stringify(ja);
+							var jsonarr=[];
+							for (var i = 0; i < ja.length; i++) {
+								jsonarr[i]=ja[i]
+							}
+							console.log(jsonarr);
+						    vv.value=jsonarr[0];
+							pp.value=jsonarr[1];
+					}
+	  	   	  	},
+	  	   	  	error:function(data){
+	  	   	  		alert('服务器繁忙');
+	  	   	  	}
+	  	   	  })
+	     	 
+	     })
+	     $("#kk").click(function(){
+	     	$.ajax({
+	     		type:"GET",
+	     		url:"delete.php",
+	     		data:{title:$("#vv").val(),content:$("#pp").val()},
+	     		success :function(data){
+	     			console.log(data)
+	     		}
+	     	})
+			$("#vv").val("");  // 将form表单中的内容 为空字符串
+			$("#pp").val("");
+//			console.log(11)
+	     })
+	     </script>
+</html>

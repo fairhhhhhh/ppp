@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		登录<br/>
+		<!--<form action="login.php">-->
+		  用户名<input  type="text"  name="name"  value=""/>
+		       <br></br>
+		密码 <input  type="password" name="password" value="" />
+		    <br></br>
+		   <button id="ff">提交</button>
+		  <!--</form>-->
+	</body>
+	    <script src="jquery.js"></script>
+	    <script>
+	    	var gg=document.getElementsByTagName("input")[0];
+	    	var hh=document.getElementsByTagName("input")[1];
+	    	$("#ff").click(function(){
+	    		$.ajax({
+	  	   	  	type:"get",
+	  	   	  	url:"chazhao.php",
+	  	   	  	data:{name:gg.value,password:hh.value},
+	  	   	  	 success:function(msg){
+//	   	             console.log(msg);
+//	   	  		  var aa = JSON.parse(msg);
+//	   	  		     alert('提交成功');
+					if(msg==1){
+							alert('密码错误');
+						}else{
+							alert('提交成功');
+							window.location.href='title.html';
+							
+						}
+	  	   	  	},
+	  	   	  	error:function(data){
+	  	   	  		alert('服务器繁忙');
+	  	   	  	}
+	    	})
+	    })
+	    </script>
+</html>
